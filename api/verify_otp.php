@@ -24,7 +24,9 @@ if ($user) {
     $_SESSION['user_id']   = $user['id'];
     $_SESSION['user_name'] = $user['name'];
     $_SESSION['user_email']= $user['email'];
-    echo json_encode(['success' => true]);
+
+    $onboarding = ($user['name'] === 'Phone User');
+    echo json_encode(['success' => true, 'onboarding_required' => $onboarding]);
 } else {
     echo json_encode(['success' => false, 'error' => 'Invalid or expired OTP code']);
 }

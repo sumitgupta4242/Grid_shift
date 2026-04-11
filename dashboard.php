@@ -5,6 +5,10 @@ require_once __DIR__ . '/includes/auth.php';
 requireLogin();
 
 $user       = getCurrentUser();
+if ($user && $user['name'] === 'Phone User') {
+    header('Location: ' . APP_URL . '/onboarding.php');
+    exit;
+}
 $db         = getDB();
 $userId     = (int)$_SESSION['user_id'];
 

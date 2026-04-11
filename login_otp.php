@@ -124,7 +124,11 @@ async function verifyOTP(e) {
         const data = await res.json();
 
         if (data.success) {
-            window.location.href = 'dashboard.php';
+            if (data.onboarding_required) {
+                window.location.href = 'onboarding.php';
+            } else {
+                window.location.href = 'dashboard.php';
+            }
         } else {
             document.getElementById('error-msg').innerText = data.error;
             err.style.display = 'block';
