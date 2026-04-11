@@ -1,0 +1,8 @@
+/vendor
+.env
+.DS_Store
+*.log
+config/config.php
+echo "config/config.php" >> .gitignoreconfig/config.php
+config/config.php
+.env
