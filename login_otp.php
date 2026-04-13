@@ -12,7 +12,7 @@ if (!empty($_SESSION['user_id'])) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Phone Login - Helios</title>
+    <title>Phone Login - Grid shift</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
@@ -35,7 +35,7 @@ if (!empty($_SESSION['user_id'])) {
 <body>
 <div class="auth-card">
     <div class="auth-brand">
-        <span class="sun">☀️</span><h1>Helios</h1>
+        <span class="sun">☀️</span><h1>Grid shift</h1>
     </div>
     <h2 style="text-align:center; margin-bottom:10px;">Login with Phone</h2>
     <p style="text-align:center; color:var(--text-muted); font-size:0.9rem; margin-bottom:24px;">Enter your phone number to receive a 6-digit OTP code.</p>

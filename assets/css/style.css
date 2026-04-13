@@ -1,5 +1,5 @@
 /* ============================================================
-   Helios – Global Dark Glassmorphism Design System
+   Grid shift – Global Dark Glassmorphism Design System
    ============================================================ */
 
 /* Google Font already linked in HTML */
@@ -528,3 +528,61 @@ body {
     animation: flowAnim 2s linear infinite;
 }
 @keyframes flowAnim { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+/* ── Footer ───────────────────────────────────────────────── */
+.app-footer {
+    background: rgba(13, 24, 16, 0.8);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid var(--border);
+    padding: 24px 32px;
+    margin-top: auto;
+}
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 20px;
+}
+.footer-left p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+.footer-left .dev-by {
+    margin-top: 4px;
+    font-size: 0.8rem;
+}
+.footer-left .highlight {
+    color: var(--accent);
+    font-weight: 600;
+}
+.footer-contact {
+    display: flex;
+    gap: 20px;
+}
+.footer-contact a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.82rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s;
+}
+.footer-contact a:hover {
+    color: var(--accent);
+}
+.footer-contact i {
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    .footer-contact {
+        flex-direction: column;
+        gap: 10px;
+    }
+}

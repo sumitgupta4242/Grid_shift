@@ -28,30 +28,65 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif (!$name || !$email) {
         $errorMsg = "Name and Email cannot be empty.";
     } else {
-        // Build dynamic query based on if password changed
-        $sql = "UPDATE users SET tariff_rate=?, panel_capacity_kw=?, battery_capacity_kwh=?, city=?, name=?, email=?";
-        $params = [$tariff, $panel, $batt, $city, $name, $email];
-        
-        if (strlen($newPwd) >= 6) {
-            $sql .= ", password_hash=?";
-            $params[] = password_hash($newPwd, PASSWORD_BCRYPT);
-        } elseif (!empty($newPwd)) {
-            $errorMsg = "Password must be at least 6 characters.";
-        }
-        
-        if (!$errorMsg) {
-            $sql .= " WHERE id=?";
-            $params[] = $userId;
+        // Handle Profile Photo Upload
+        $profileImagePath = $user['profile_image'];
+        if (isset($_FILES['profile_photo']) && $_FILES['profile_photo']['error'] === UPLOAD_ERR_OK) {
+            $fileTmpPath = $_FILES['profile_photo']['tmp_name'];
+            $fileName = $_FILES['profile_photo']['name'];
+            $fileSize = $_FILES['profile_photo']['size'];
+            $fileType = $_FILES['profile_photo']['type'];
+            $fileNameCmps = explode(".", $fileName);
+            $fileExtension = strtolower(end($fileNameCmps));
             
-            $stmt = $db->prepare($sql);
-            if ($stmt->execute($params)) {
-                $successMsg = "Settings and Profile updated successfully.";
-                $user = getCurrentUser(); // Refresh local user data
-                // Update session
-                $_SESSION['user_name'] = $user['name'];
-                $_SESSION['user_email'] = $user['email'];
+            $allowedfileExtensions = array('jpg', 'gif', 'png', 'jpeg', 'webp');
+            if (in_array($fileExtension, $allowedfileExtensions)) {
+                $uploadFileDir = __DIR__ . '/uploads/profile_photos/';
+                if (!is_dir($uploadFileDir)) {
+                    mkdir($uploadFileDir, 0777, true);
+                }
+                $newFileName = $userId . '_' . time() . '.' . $fileExtension;
+                $dest_path = $uploadFileDir . $newFileName;
+                
+                if (move_uploaded_file($fileTmpPath, $dest_path)) {
+                    // Delete old photo if exists
+                    if ($user['profile_image'] && file_exists($uploadFileDir . $user['profile_image'])) {
+                        unlink($uploadFileDir . $user['profile_image']);
+                    }
+                    $profileImagePath = $newFileName;
+                } else {
+                    $errorMsg = "There was some error moving the file to upload directory. Please make sure the upload directory is writable by web server.";
+                }
             } else {
-                $errorMsg = "Failed to update settings.";
+                $errorMsg = "Upload failed. Allowed file types: " . implode(',', $allowedfileExtensions);
+            }
+        }
+
+        if (!$errorMsg) {
+            // Build dynamic query based on if password changed
+            $sql = "UPDATE users SET tariff_rate=?, panel_capacity_kw=?, battery_capacity_kwh=?, city=?, name=?, email=?, profile_image=?";
+            $params = [$tariff, $panel, $batt, $city, $name, $email, $profileImagePath];
+            
+            if (strlen($newPwd) >= 6) {
+                $sql .= ", password_hash=?";
+                $params[] = password_hash($newPwd, PASSWORD_BCRYPT);
+            } elseif (!empty($newPwd)) {
+                $errorMsg = "Password must be at least 6 characters.";
+            }
+            
+            if (!$errorMsg) {
+                $sql .= " WHERE id=?";
+                $params[] = $userId;
+                
+                $stmt = $db->prepare($sql);
+                if ($stmt->execute($params)) {
+                    $successMsg = "Settings and Profile updated successfully.";
+                    $user = getCurrentUser(); // Refresh local user data
+                    // Update session
+                    $_SESSION['user_name'] = $user['name'];
+                    $_SESSION['user_email'] = $user['email'];
+                } else {
+                    $errorMsg = "Failed to update settings.";
+                }
             }
         }
     }
@@ -60,6 +95,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $pageTitle    = 'System Settings';
 $pageSubtitle = 'Configure your solar grid parameters';
 $activePage   = 'settings';
+
+$extraHead = '
+<style>
+.profile-upload-area { display: flex; align-items: center; gap: 20px; }
+.profile-preview { width: 80px; height: 80px; border-radius: 50%; overflow: hidden; background: var(--bg-secondary); border: 2px solid var(--border-accent); display: flex; align-items: center; justify-content: center; }
+.profile-preview img { width: 100%; height: 100%; object-fit: cover; }
+.avatar-fallback { font-size: 2.5rem; }
+</style>
+';
+
+$extraScripts = '
+<script>
+function previewImage(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var img = document.getElementById("img-preview");
+            img.src = e.target.result;
+            img.style.display = "block";
+            var fallback = document.querySelector(".avatar-fallback");
+            if (fallback) fallback.style.display = "none";
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+</script>
+';
 include __DIR__ . '/includes/header.php';
 ?>
 
@@ -141,9 +203,32 @@ include __DIR__ . '/includes/header.php';
 
     <!-- Account Details -->
     <div class="card">
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
             <div class="settings-group">
                 <h3>👤 Account Profile</h3>
+                
+                <div class="setting-row" style="flex-direction: column; align-items: flex-start; gap: 15px;">
+                    <div class="setting-label">
+                        <h4>Profile Photo</h4>
+                        <p>Upload a new profile picture</p>
+                    </div>
+                    <div class="profile-upload-area">
+                        <div class="profile-preview">
+                            <?php if ($user['profile_image']): ?>
+                                <img src="uploads/profile_photos/<?= htmlspecialchars($user['profile_image']) ?>" alt="Profile" id="img-preview">
+                            <?php else: ?>
+                                <div class="avatar-fallback"><?= htmlspecialchars($user['avatar'] ?? '👤') ?></div>
+                                <img src="" alt="Profile" id="img-preview" style="display:none;">
+                            <?php endif; ?>
+                        </div>
+                        <div class="upload-btn-wrapper">
+                            <button class="btn btn-outline btn-sm" type="button" onclick="document.getElementById('profile_photo').click()">
+                                <i class="fas fa-camera"></i> Change Photo
+                            </button>
+                            <input type="file" name="profile_photo" id="profile_photo" style="display:none;" onchange="previewImage(this)">
+                        </div>
+                    </div>
+                </div>
                 
                 <div class="setting-row">
                     <div class="setting-label">

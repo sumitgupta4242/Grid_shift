@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $resetLink = APP_URL . "/reset_password.php?token={$token}";
             $msg = "Hello {$user['name']},\n\nYou have requested a password reset. Please click the link below to set a new password. This link expires in 1 hour.\n$resetLink\n\nIf you did not request this, please ignore this email.";
             
-            Mailer::sendEmail($email, "Password Reset - Helios", $msg);
+            Mailer::sendEmail($email, "Password Reset - Grid shift", $msg);
         }
         
         // Always show success to prevent email enumeration
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Forgot Password - Helios</title>
+    <title>Forgot Password - Grid shift</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 <div class="auth-card">
     <div class="auth-brand">
-        <span class="sun">☀️</span><h1>Helios</h1>
+        <span class="sun">☀️</span><h1>Grid shift</h1>
     </div>
     <h2 style="text-align:center; margin-bottom:10px;">Forgot Password</h2>
     <p style="text-align:center; color:var(--text-muted); font-size:0.9rem; margin-bottom:24px;">Enter your email to receive a reset link.</p>

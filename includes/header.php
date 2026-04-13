@@ -7,8 +7,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Helios – Smart Solar & Grid Optimizer Dashboard">
-    <title><?= htmlspecialchars($pageTitle ?? 'Helios') ?> – Helios Solar</title>
+    <meta name="description" content="Grid shift – Smart Solar & Grid Optimizer Dashboard">
+    <title><?= htmlspecialchars($pageTitle ?? 'Grid shift') ?> – Grid shift Solar</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -25,7 +25,7 @@
     <div class="sidebar-brand">
         <span class="sun-icon">☀️</span>
         <div>
-            <h2>Helios</h2>
+            <h2>Grid shift</h2>
             <span>Solar Optimizer v1.0</span>
         </div>
     </div>
@@ -66,7 +66,13 @@
 
     <div class="sidebar-footer">
         <div class="sidebar-user">
-            <div class="avatar"><?= htmlspecialchars($user['avatar'] ?? '☀️') ?></div>
+            <div class="avatar" style="overflow:hidden;">
+                <?php if (!empty($user['profile_image'])): ?>
+                    <img src="<?= APP_URL ?>/uploads/profile_photos/<?= htmlspecialchars($user['profile_image']) ?>" alt="Avatar" style="width:100%; height:100%; object-fit:cover;">
+                <?php else: ?>
+                    <?= htmlspecialchars($user['avatar'] ?? '☀️') ?>
+                <?php endif; ?>
+            </div>
             <div class="user-info">
                 <h4><?= htmlspecialchars($user['name'] ?? 'User') ?></h4>
                 <p><?= htmlspecialchars($user['city'] ?? 'N/A') ?></p>

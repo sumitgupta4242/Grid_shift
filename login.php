@@ -32,8 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Helios – Smart Solar & Grid Optimizer. Login to your energy dashboard.">
-    <title>Login – Helios Solar Optimizer</title>
+    <meta name="description" content="Grid shift – Smart Solar & Grid Optimizer. Login to your energy dashboard.">
+    <title>Login – Grid shift Solar Optimizer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -128,7 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="hero-logo">
                 <span class="sun-icon">☀️</span>
                 <div>
-                    <h1>Helios</h1>
+                    <h1>Grid shift</h1>
                     <div class="hero-tagline">Smart Solar & Grid Optimizer</div>
                 </div>
             </div>
@@ -163,7 +163,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             </div>
         </div>
-        <div class="hero-footer">© 2026 Helios – Final Year Project Demo</div>
+        <div class="hero-footer">© 2026 Grid shift – Final Year Project Demo</div>
     </div>
 
     <!-- Form Panel -->

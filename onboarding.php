@@ -22,7 +22,7 @@ if ($user['name'] !== 'Phone User') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Complete Your Profile - Helios</title>
+    <title>Complete Your Profile - Grid shift</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
@@ -83,7 +83,7 @@ if ($user['name'] !== 'Phone User') {
 <body>
 <div class="onboarding-card">
     <div class="onboarding-brand">
-        <span class="sun">☀️</span><h1>Helios</h1>
+        <span class="sun">☀️</span><h1>Grid shift</h1>
     </div>
     
     <div class="progress-steps">
@@ -92,7 +92,7 @@ if ($user['name'] !== 'Phone User') {
     </div>
 
     <h2>One last step!</h2>
-    <p class="subtitle">Welcome to Helios. Let's personalize your experience by completing your profile details.</p>
+    <p class="subtitle">Welcome to Grid shift. Let's personalize your experience by completing your profile details.</p>
 
     <div id="error-alert" style="display:none;" class="alert alert-danger">
         <i class="fas fa-circle-exclamation"></i> <span id="error-msg"></span>

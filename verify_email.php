@@ -37,7 +37,7 @@ $pageTitle = 'Email Verification';
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title><?= $pageTitle ?> - Helios</title>
+    <title><?= $pageTitle ?> - Grid shift</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="<?= APP_URL ?>/assets/css/style.css">
 </head>

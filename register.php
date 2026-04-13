@@ -37,8 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Create your Helios account and start optimizing solar energy today.">
-    <title>Register – Helios Solar Optimizer</title>
+    <meta name="description" content="Create your Grid shift account and start optimizing solar energy today.">
+    <title>Register – Grid shift Solar Optimizer</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -208,7 +208,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="auth-card">
         <div class="auth-brand">
             <span class="sun">☀️</span>
-            <h1>Helios</h1>
+            <h1>Grid shift</h1>
         </div>
         <h2>Create your account</h2>
         <p>Start optimizing your solar energy today</p>
